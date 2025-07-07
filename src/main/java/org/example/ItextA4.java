@@ -44,6 +44,9 @@ public class ItextA4 {
             PdfDocument pdf = new PdfDocument(new PdfWriter("C:\\Users\\bbbang\\Desktop\\简单示例.pdf"));
 //            // 初始化文档
             document = new Document(pdf, PageSize.A4);
+            //default 32f
+            document.setMargins(0,0,0,0);
+
             // 创建一个 FlexContainer
             Table grid = new Table(2);
             grid.setMargin(0);

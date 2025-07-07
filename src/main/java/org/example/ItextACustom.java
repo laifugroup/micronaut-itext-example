@@ -48,6 +48,7 @@ public class ItextACustom {
             //安全区域
             document2.setMargins(8,0,0,0);
             document2.add(div1);
+            //Chunk chunk=new Chunk("");
 
             //PdfImageXObject imageXObject = new PdfImageXObject(new PdfStream(new FileOutputStream("11")));
             //BufferedImage outImage = new BufferedImage(imageXObject.getImageBytes(), BufferedImage.TYPE_INT_RGB);
