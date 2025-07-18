@@ -29,9 +29,20 @@
 
     <repositories>
         <repository>
+            <id>central1</id>
+            <url>https://maven.aliyun.com/repository/central</url>
+        </repository>
+
+        <repository>
+            <id>central2</id>
+            <url> https://maven.aliyun.com/repository/public</url>
+        </repository>
+
+        <repository>
             <id>central</id>
             <url>https://repo.maven.apache.org/maven2</url>
         </repository>
+
     </repositories>
 
     <dependencies>
@@ -71,11 +82,11 @@
             <artifactId>commons</artifactId>
             <version>${itext.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>pdfRender</artifactId>
-            <version>${itext.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.itextpdf</groupId>-->
+<!--            <artifactId>pdfRender</artifactId>-->
+<!--            <version>${itext.version}</version>-->
+<!--        </dependency>-->
 
 
 

@@ -23,18 +23,15 @@ import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.VerticalAlignment;
 
-import java.awt.image.BufferedImage;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.Map;
 
-public class ItextACustom {
+public class ItextFrog6 {
     // 基本入门案例
     public static void main(String[] args) {
         Document document = null;
         try {
 //            // 创建并初始化一个PDF文档
-            PdfDocument pdf = new PdfDocument(new PdfWriter("C:\\Users\\bbbang\\Desktop\\简单示例.pdf"));
+            PdfDocument pdf = new PdfDocument(new PdfWriter("C:\\Users\\bbbang\\Desktop\\frog8.pdf"));
             // 创建 1 个 Div 实例
             Div div1 = grid(0,pdf);
             // 调整 Div 的宽度，使其一行能容纳两个 Div
@@ -44,7 +41,7 @@ public class ItextACustom {
             float divHeight = (PageSize.A4.getHeight() - 180) / 3;
             div1.setHeight(divHeight);
             pdf.setDefaultPageSize(new PageSize(divWidth+16,divHeight+16));
-            Document document2 = new Document(pdf);
+            Document document2 = new Document(pdf,PageSize.A4);
             //安全区域
             document2.setMargins(8,0,0,0);
             document2.add(div1);
