@@ -145,7 +145,6 @@ public class ItextFrog8 {
                 .setMargin(0)
                 .setPadding(0)
                 .setFontColor(DeviceRgb.BLACK)
-                //.setBackgroundColor(new DeviceRgb(187, 255, 255))
                 .setTextAlignment(TextAlignment.CENTER)
                 .setVerticalAlignment(VerticalAlignment.MIDDLE)
                 ;
@@ -164,7 +163,6 @@ public class ItextFrog8 {
         image.setPadding(0f);
         image.setHorizontalAlignment(HorizontalAlignment.CENTER);
         image.setAutoScale(false);
-        //image.setBackgroundColor(new DeviceRgb(187, 255, 255));
         itemDiv.add(image);
 
 
@@ -175,7 +173,6 @@ public class ItextFrog8 {
                 .setPadding(0)
                 //.setBold()
                 .setFontColor(DeviceRgb.BLACK)
-                //.setBackgroundColor(new DeviceRgb(187, 255, 255))
                 .setTextAlignment(TextAlignment.CENTER)
                 .setVerticalAlignment(VerticalAlignment.BOTTOM) // 修改为底部对齐
                 ;
