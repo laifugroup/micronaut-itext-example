@@ -14,20 +14,21 @@ import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.borders.SolidBorder;
+import com.itextpdf.layout.borders.*;
 import com.itextpdf.layout.element.*;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.VerticalAlignment;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class ItextFrog8 {
-
-    static int safeMargin = 4;
+    static int docMargin = 0;
+    static int safeMargin = 12;
 
     // 基本入门案例
     public static void main(String[] args) {
@@ -40,11 +41,11 @@ public class ItextFrog8 {
         Document document = null;
         try {
 //            // 创建并初始化一个PDF文档
-            PdfDocument pdf = new PdfDocument(new PdfWriter("C:\\Users\\\\jilijili\\Desktop\\金蟾寻宝Frog.pdf"));
+            PdfDocument pdf = new PdfDocument(new PdfWriter("C:\\Users\\\\jilijili\\Desktop\\frog.pdf"));
 //            // 初始化文档
             document = new Document(pdf, PageSize.A4.rotate());
             //default 32f
-            document.setMargins(safeMargin,safeMargin,safeMargin,safeMargin);
+            document.setMargins(docMargin,docMargin,docMargin,docMargin);
             int pageMaxSize = 8;
             int totalPages = (data.size() + pageMaxSize - 1) / pageMaxSize;
             for (int i = 0; i < totalPages; i++) {
@@ -79,14 +80,12 @@ public class ItextFrog8 {
         page.setPadding(0);
         //page.useAllAvailableWidth();
         page.setHeight(PageSize.A4.rotate().getHeight());
-        float tableWidth = PageSize.A4.rotate().getWidth() - 2*safeMargin;
-        page.setWidth(tableWidth); // 限制表格宽度
+        page.setWidth(PageSize.A4.rotate().getWidth()); // 限制表格宽度
         page.setVerticalAlignment(VerticalAlignment.MIDDLE);
         page.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        //page.setBackgroundColor(DeviceRgb.BLUE);
 
-        float divWidth = (PageSize.A4.rotate().getWidth()-(columns-1)*24-safeMargin*2) / columns;
-        float divHeight = (PageSize.A4.rotate().getHeight() - (rows-1)*24-safeMargin*2) / rows;
+        float divWidth = (PageSize.A4.rotate().getWidth() -safeMargin*8) / columns;
+        float divHeight = (PageSize.A4.rotate().getHeight() -safeMargin*4 ) / rows;
         float sideLength=divWidth<divHeight?divWidth:divHeight;
 
         // 将 Div 添加到 FlexContainer 中
@@ -99,17 +98,31 @@ public class ItextFrog8 {
             // 调整 Div 的高度，使其一列能容纳三个 Div
             itemedDiv.setHeight(divHeight);
             Cell cell=new Cell();
-            Border noBorder = new SolidBorder(ColorConstants.WHITE, 0); // 创建透明边框
-            cell.setBorder(noBorder);
             cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
             cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
             cell.add(itemedDiv);
-//            if (i==0){
-//                cell.setBackgroundColor(DeviceRgb.RED);
-//            }
-//            if (i==3){
-//                cell.setBackgroundColor(DeviceRgb.RED);
-//            }
+            //透明框也可以当做space作用
+            float unitsOn=6.0f;
+            FixedDashedBorder rightBorder = new FixedDashedBorder(
+                    ColorConstants.BLACK,
+                    0.5f,
+                    unitsOn,  // unitsOn（实线部分长度）
+                    divHeight, // unitsOff（空白部分长度，增大此值使间距变大）
+                    divHeight/2-unitsOn/2  // phase（相位偏移，通常保持0）
+            );
+            if (i%columns<columns-1){
+                cell.setBorderRight(rightBorder);
+            }
+            FixedDashedBorder bottomBorder = new FixedDashedBorder(
+                    ColorConstants.BLACK,
+                    0.5f,
+                    unitsOn,  // unitsOn（实线部分长度）
+                    divWidth, // unitsOff（空白部分长度，增大此值使间距变大）
+                    divWidth/2-unitsOn/2   // phase（相位偏移，通常保持0）
+            );
+            if (i<columns){
+                cell.setBorderBottom( bottomBorder);
+            }
             page.addCell(cell);
         }
         return page;
@@ -117,9 +130,7 @@ public class ItextFrog8 {
 
     private  Div itemDiv(float sideLength,Item data,PdfDocument pdf) throws Exception{
         Div itemDiv = new Div();
-        itemDiv.setMargin(0);
-        itemDiv.setPadding(0);
-        itemDiv.setBorder(new SolidBorder(ColorConstants.BLACK, 0.5f));
+
         // 添加垂直对齐属性
         itemDiv.setHorizontalAlignment(HorizontalAlignment.CENTER);
         itemDiv.setVerticalAlignment(VerticalAlignment.MIDDLE);
@@ -130,7 +141,7 @@ public class ItextFrog8 {
         Paragraph title = new Paragraph(data.getTitle())
                 .setFont(font)
                 .setFontSize(18)
-                //.setBold()
+                .setBold()
                 .setMargin(0)
                 .setPadding(0)
                 .setFontColor(DeviceRgb.BLACK)
@@ -162,6 +173,7 @@ public class ItextFrog8 {
                 .setFontSize(12)
                 .setMargin(0)
                 .setPadding(0)
+                //.setBold()
                 .setFontColor(DeviceRgb.BLACK)
                 //.setBackgroundColor(new DeviceRgb(187, 255, 255))
                 .setTextAlignment(TextAlignment.CENTER)
@@ -175,7 +187,7 @@ public class ItextFrog8 {
                 .setMargin(0)
                 .setPadding(0)
                 .setFontColor(DeviceRgb.BLACK)
-               // .setBackgroundColor(new DeviceRgb(187, 255, 255))
+                .setBold()
                 .setTextAlignment(TextAlignment.CENTER);
                 //.setVerticalAlignment(VerticalAlignment.MIDDLE);
         itemDiv.add(slogan);
