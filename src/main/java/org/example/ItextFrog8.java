@@ -168,7 +168,7 @@ public class ItextFrog8 {
 
         Paragraph code = new Paragraph("编码: "+data.getCode())
                 .setFont(font)
-                .setFontSize(12)
+                .setFontSize(13)
                 .setMargin(0)
                 .setPadding(0)
                 //.setBold()
