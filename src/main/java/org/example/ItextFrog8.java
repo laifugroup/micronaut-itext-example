@@ -41,7 +41,7 @@ public class ItextFrog8 {
         Document document = null;
         try {
 //            // 创建并初始化一个PDF文档
-            PdfDocument pdf = new PdfDocument(new PdfWriter("C:\\Users\\\\jilijili\\Desktop\\frog.pdf"));
+            PdfDocument pdf = new PdfDocument(new PdfWriter("./frog.pdf"));
 //            // 初始化文档
             document = new Document(pdf, PageSize.A4.rotate());
             //default 32f
