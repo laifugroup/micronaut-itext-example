@@ -9,9 +9,7 @@ import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfPage;
-import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.*;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.*;
@@ -19,9 +17,12 @@ import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.properties.VerticalAlignment;
 
 import java.awt.*;
+import java.io.FileOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,8 +41,25 @@ public class ItextFrog8 {
 
         Document document = null;
         try {
+            String userPassword="123456";
+            String ownerPassword="456123";
+            WriterProperties writerProperties = new WriterProperties();
+            writerProperties.setStandardEncryption(
+                    userPassword.getBytes(StandardCharsets.UTF_8),
+                    ownerPassword.getBytes(StandardCharsets.UTF_8),
+                    EncryptionConstants.ALLOW_PRINTING,
+                    EncryptionConstants.EMBEDDED_FILES_ONLY
+            );
 //            // 创建并初始化一个PDF文档
-            PdfDocument pdf = new PdfDocument(new PdfWriter("./frog.pdf"));
+            PdfDocument pdf = new PdfDocument(new PdfWriter("./frog.pdf",writerProperties));
+            PdfDocumentInfo pdfDocumentInfo=pdf.getDocumentInfo();
+            pdfDocumentInfo.setAuthor("FrogTeam");
+            pdfDocumentInfo.setTitle("金蟾寻宝码");
+            pdfDocumentInfo.setSubject("做最好的户外探索游戏");
+            pdfDocumentInfo.setCreator("frog");
+            pdfDocumentInfo.setKeywords("金蟾寻宝，户外探索，游戏，探索，寻宝，户外探索游戏");
+            pdfDocumentInfo.setProducer("frog design");
+
 //            // 初始化文档
             document = new Document(pdf, PageSize.A4.rotate());
             //default 32f
@@ -74,8 +92,17 @@ public class ItextFrog8 {
         if (items.size()>columns*rows){
             throw new Exception("每页最多"+columns*rows+"条数据");
         }
+
+        UnitValue lie1 = new UnitValue(UnitValue.PERCENT, 25);
+        UnitValue lie2 = new UnitValue(UnitValue.PERCENT, 25);
+        UnitValue lie3 = new UnitValue(UnitValue.PERCENT, 25);
+        UnitValue lie4 = new UnitValue(UnitValue.PERCENT, 25);
+        UnitValue[] col = {lie1, lie2, lie3,lie4};
+        Table page = new Table(col);
         // 创建一个 FlexContainer
-        Table page = new Table(columns);
+       // Table page = new Table(columns);
+
+
         page.setMargin(0);
         page.setPadding(0);
         //page.useAllAvailableWidth();
