@@ -34,7 +34,7 @@ public class ItextFrog8 {
     // 基本入门案例
     public static void main(String[] args) {
         List<Item> data = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 160; i++) {
             Item item = new Item("028"+String.valueOf(10001000+i+1));
             data.add(item);
         }
@@ -108,8 +108,8 @@ public class ItextFrog8 {
         //page.useAllAvailableWidth();
         page.setHeight(PageSize.A4.rotate().getHeight());
         page.setWidth(PageSize.A4.rotate().getWidth()); // 限制表格宽度
-        page.setVerticalAlignment(VerticalAlignment.MIDDLE);
-        page.setHorizontalAlignment(HorizontalAlignment.CENTER);
+//        page.setVerticalAlignment(VerticalAlignment.TOP);
+//        page.setHorizontalAlignment(HorizontalAlignment.LEFT);
 
         float divWidth = (PageSize.A4.rotate().getWidth() -safeMargin*8) / columns;
         float divHeight = (PageSize.A4.rotate().getHeight() -safeMargin*4 ) / rows;
@@ -125,8 +125,8 @@ public class ItextFrog8 {
             // 调整 Div 的高度，使其一列能容纳三个 Div
             itemedDiv.setHeight(divHeight);
             Cell cell=new Cell();
-            cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
-            cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
+//            cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
+//            cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
             cell.add(itemedDiv);
             //透明框也可以当做space作用
             float unitsOn=6.0f;
